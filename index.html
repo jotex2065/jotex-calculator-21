@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Loan Calculator</title>
+  <link rel="stylesheet" href="style.css">
+  
+  <!-- PWA manifest -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#3498db">
+  <link rel="apple-touch-icon" href="icons/icon-192x192.png">
+  
+  <!-- JS libraries -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
+</head>
+<body>
+  <div class="calculator">
+    <h2>Loan Calculator</h2>
+
+    <label for="loanAmount">Loan Amount (TZS)</label>
+    <input id="loanAmount" type="number" placeholder="1000000">
+
+    <label for="repaymentPeriod">Repayment Period (Months)</label>
+    <input id="repaymentPeriod" type="number" placeholder="e.g. 12">
+
+    <label for="repaymentMode">Repayment Mode</label>
+    <select id="repaymentMode">
+      <option value="monthly">Monthly</option>
+      <option value="biweekly">Bi-Weekly</option>
+      <option value="weekly">Weekly</option>
+      <option value="daily">Daily</option>
+    </select>
+
+    <!-- Interest Rate and Type -->
+    <div class="input-cards">
+      <div class="card">
+        <label for="interestRate">Interest Rate (Monthly %)</label>
+        <input id="interestRate" type="number" value="3.5" step="0.1" readonly>
+      </div>
+      <div class="card">
+        <label for="interestType">Interest Type</label>
+        <select id="interestType">
+          <option value="reducing">Reducing Balance (EMI)</option>
+          <option value="flat">Flat</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Fees Table -->
+    <h3>Loan Fees</h3>
+    <table class="fees-table">
+      <thead>
+        <tr>
+          <th>Fee Type</th>
+          <th>Fixed (TZS)</th>
+          <th>% of Loan</th>
+          <th>Mode</th>
+          <th>Calculated (TZS)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Loan Application Fee</td>
+          <td><input type="number" id="appFeeFixed" placeholder="e.g. 20000"></td>
+          <td><input type="number" id="appFeePercent" value="1" readonly></td>
+          <td>
+            <select id="appFeeMode" disabled>
+              <option value="upfront" selected>Upfront</option>
+            </select>
+          </td>
+          <td><span id="appFeeCalc">0</span></td>
+        </tr>
+        <tr>
+          <td>Processing Fee</td>
+          <td>-</td>
+          <td><input type="number" id="procFeePercent" value="4" readonly></td>
+          <td>
+            <select id="procFeeMode">
+              <option value="upfront">Upfront</option>
+              <option value="deducted">Deducted</option>
+            </select>
+          </td>
+          <td><span id="procFeeCalc">0</span></td>
+        </tr>
+        <tr>
+          <td>Insurance Fee</td>
+          <td>-</td>
+          <td><input type="number" id="insFeePercent" value="1" readonly></td>
+          <td>
+            <select id="insFeeMode">
+              <option value="upfront">Upfront</option>
+              <option value="deducted">Deducted</option>
+            </select>
+          </td>
+          <td><span id="insFeeCalc">0</span></td>
+        </tr>
+        <tr>
+          <td>Monitoring Fee</td>
+          <td>-</td>
+          <td><input type="number" id="monFeePercent" value="2" readonly></td>
+          <td>
+            <select id="monFeeMode">
+              <option value="upfront">Upfront</option>
+              <option value="deducted">Deducted</option>
+            </select>
+          </td>
+          <td><span id="monFeeCalc">0</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="total-fees">
+      <strong>Total Fees: </strong> <span id="totalFees">0</span> TZS
+    </div>
+
+    <label for="startDate">Start Date</label>
+    <input id="startDate" type="date">
+
+    <button id="calculateBtn">Calculate</button>
+
+    <div id="results"></div>
+
+    <div class="schedule-controls">
+      <button id="copyScheduleBtn">Copy Schedule for Contract</button>
+      <button id="downloadPdfBtn">Download PDF</button>
+    </div>
+
+    <table id="scheduleTable">
+      <thead>
+        <tr>
+          <th>S/N</th>
+          <th>Date</th>
+          <th>Day</th>
+          <th>Principal</th>
+          <th>Interest</th>
+          <th>Installment</th>
+          <th>Outstanding</th>
+        </tr>
+      </thead>
+      <tbody id="scheduleBody"></tbody>
+    </table>
+  </div>
+
+  <script src="script.js"></script>
+
+  <!-- Register service worker -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function() {
+        navigator.serviceWorker.register('service-worker.js')
+        .then(reg => console.log("✅ Service Worker registered:", reg.scope))
+        .catch(err => console.error("❌ Service Worker failed:", err));
+      });
+    }
+  </script>
+</body>
+</html>

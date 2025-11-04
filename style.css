@@ -1,0 +1,258 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.6;
+  color: #333;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.calculator {
+  max-width: 900px;
+  margin: 0 auto;
+  background: white;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 25px;
+  color: #2c3e50;
+  font-size: 28px;
+}
+
+h3 {
+  margin: 20px 0 15px 0;
+  color: #34495e;
+  border-bottom: 2px solid #3498db;
+  padding-bottom: 8px;
+}
+
+label {
+  display: block;
+  margin: 15px 0 8px 0;
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+input, select {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 15px;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  font-size: 16px;
+  transition: border-color 0.3s;
+}
+
+input:focus, select:focus {
+  outline: none;
+  border-color: #3498db;
+}
+
+.input-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+  margin: 20px 0;
+}
+
+.card {
+  background: #f8f9fa;
+  padding: 15px;
+  border-radius: 10px;
+  border: 1px solid #e9ecef;
+}
+
+.fees-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  background: white;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.fees-table th {
+  background: #3498db;
+  color: white;
+  padding: 12px;
+  text-align: left;
+  font-weight: 600;
+}
+
+.fees-table td {
+  padding: 12px;
+  border-bottom: 1px solid #ecf0f1;
+}
+
+.fees-table input {
+  margin: 0;
+  padding: 8px;
+  width: 100%;
+}
+
+.fees-table select {
+  margin: 0;
+  padding: 8px;
+}
+
+.total-fees {
+  text-align: center;
+  padding: 15px;
+  background: #2ecc71;
+  color: white;
+  border-radius: 8px;
+  margin: 15px 0;
+  font-size: 18px;
+}
+
+button {
+  width: 100%;
+  padding: 15px;
+  background: #3498db;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+  margin: 10px 0;
+  transition: background 0.3s;
+}
+
+button:hover {
+  background: #2980b9;
+}
+
+.schedule-controls {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+  margin: 20px 0;
+}
+
+#copyScheduleBtn {
+  background: #e67e22;
+}
+
+#copyScheduleBtn:hover {
+  background: #d35400;
+}
+
+#downloadPdfBtn {
+  background: #27ae60;
+}
+
+#downloadPdfBtn:hover {
+  background: #219a52;
+}
+
+#results {
+  background: #e8f4fc;
+  padding: 20px;
+  border-radius: 10px;
+  margin: 20px 0;
+  border-left: 5px solid #3498db;
+}
+
+#scheduleTable {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  background: white;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+#scheduleTable th {
+  background: #2c3e50;
+  color: white;
+  padding: 12px;
+  text-align: center;
+  font-weight: 600;
+}
+
+#scheduleTable td {
+  padding: 10px;
+  border-bottom: 1px solid #ecf0f1;
+  text-align: center;
+}
+
+#scheduleTable tr:nth-child(even) {
+  background: #f8f9fa;
+}
+
+#scheduleTable tr:hover {
+  background: #e3f2fd;
+}
+
+/* PWA Installation Prompt */
+.install-prompt {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #2c3e50;
+  color: white;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  z-index: 1000;
+}
+
+.install-prompt button {
+  margin: 5px;
+  padding: 8px 15px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .calculator {
+    padding: 15px;
+    margin: 10px;
+  }
+  
+  .input-cards {
+    grid-template-columns: 1fr;
+  }
+  
+  .schedule-controls {
+    grid-template-columns: 1fr;
+  }
+  
+  .fees-table {
+    font-size: 14px;
+  }
+  
+  #scheduleTable {
+    font-size: 12px;
+  }
+}
+
+/* Print Styles for Contract */
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  
+  #scheduleTable, #scheduleTable * {
+    visibility: visible;
+  }
+  
+  #scheduleTable {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+  }
+}
