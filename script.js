@@ -25,7 +25,7 @@ function calculateFees() {
     
     // Calculate each fee based on fixed percentages
     const appFeePercent = 1; // 1%
-    const procFeePercent = 4; // 4%
+    const procFeePercent = 2; // 2%
     const insFeePercent = 1;  // 1%
     const monFeePercent = 2;  // 2%
     
@@ -328,4 +328,5 @@ if ('serviceWorker' in navigator) {
         console.error('Service Worker registration failed: ', error);
       });
   });
+
 }
